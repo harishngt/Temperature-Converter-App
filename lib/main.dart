@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:temperature_converter_app/temperature.dart';
+import 'package:temperature_converter_app/screens/temperature.dart';
 import 'package:temperature_converter_app/theme/color.dart';
 
 void main() {
