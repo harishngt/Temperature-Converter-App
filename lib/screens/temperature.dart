@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:temperature_converter_app/theme/color.dart';
 import 'package:temperature_converter_app/widgets/radiobutton.dart';
+import 'package:temperature_converter_app/temperature_converter_logic/temperature_converter_logic.dart';
 
 class TempConv extends StatefulWidget {
   const TempConv({super.key});
@@ -18,6 +20,52 @@ class _TempConvState extends State<TempConv> {
   String temp = '';
   String currentin = 'Celsius';
   String currentout = 'Fahrenheit';
+  String _output = '';
+  TextEditingController _inputController = TextEditingController();
+  TemperatureLogic _temperatureLogic = TemperatureLogic();
+
+  void _calculate(String userInput) {
+    // Get the user input from the TextField
+    //String userInput = _inputController.text;
+
+    // Convert the user input to an integer (you can handle error cases here)
+    double number = double.tryParse(userInput) ?? 0;
+
+    // Perform the calculation using predefined functions
+    if (currentin == currentout) {
+      _output = userInput;
+    } else if (currentin == 'Celsius') {
+      if (currentout == 'Kelvin') {
+        double ctok = _temperatureLogic.celsiusToKelvin(number);
+        _output = ctok.toStringAsFixed(2);
+      } else if (currentout == 'Fahrenheit') {
+        double ctof = _temperatureLogic.celsiusToFahrenheit(number);
+        _output = ctof.toStringAsFixed(2);
+      }
+    } else if (currentin == 'Kelvin') {
+      if (currentout == 'Fahrenheit') {
+        double ktof = _temperatureLogic.kelvinToFahrenheit(number);
+        _output = ktof.toStringAsFixed(2);
+      } else if (currentout == 'Celsius') {
+        double ktoc = _temperatureLogic.kelvinToCelsius(number);
+        _output = ktoc.toStringAsFixed(2);
+      }
+    } else if (currentin == 'Fahrenheit') {
+      if (currentout == 'Celsius') {
+        double ftoc = _temperatureLogic.fahrenheitToCelsius(number);
+        _output = ftoc.toStringAsFixed(2);
+      } else if (currentout == 'Kelvin') {
+        double ftok = _temperatureLogic.fahrenheitToKelvin(number);
+        _output = ftok.toStringAsFixed(2);
+      }
+    }
+
+    // Update the output
+    setState(() {
+      _output;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,14 +94,21 @@ class _TempConvState extends State<TempConv> {
                 Container(
                   height: 35,
                   width: 180,
-                  child: TextFormField(
+                  child: TextField(
+                    controller: _inputController,
+                    cursorColor: AppColor.primary,
                     keyboardType: TextInputType.number,
+                    onChanged: _calculate,
                     style: TextStyle(fontSize: 20),
                     maxLines: 1,
                     minLines: 1,
                     decoration: InputDecoration(
                       border: UnderlineInputBorder(),
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^-?(\d+)?(\.\d*)?$')),
+                    ],
                   ),
                 ),
                 SizedBox(height: 20),
@@ -94,19 +149,30 @@ class _TempConvState extends State<TempConv> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
+                SizedBox(height: 5),
                 Container(
-                  height: 35,
-                  width: 180,
-                  child: TextFormField(
-                    keyboardType: TextInputType.number,
-                    style: TextStyle(fontSize: 20),
-                    maxLines: 1,
-                    minLines: 1,
-                    decoration: InputDecoration(
-                      border: UnderlineInputBorder(),
+                    height: 35,
+                    width: 180,
+                    child: Column(
+                      children: [
+                        Text(_output, style: TextStyle(fontSize: 20)),
+                        Divider(height: 12, thickness: 1, color: Colors.black)
+                      ],
+                    )
+                    // TextField(
+                    //   keyboardType: TextInputType.number,
+                    //   style: TextStyle(fontSize: 20),
+                    //   maxLines: 1,
+                    //   minLines: 1,
+                    //   decoration: InputDecoration(
+                    //     border: UnderlineInputBorder(),
+                    //   ),
+                    //   inputFormatters: [
+                    //     FilteringTextInputFormatter.allow(
+                    //         RegExp(r'^-?(\d+)?(\.\d*)?$')),
+                    //   ],
+                    // ),
                     ),
-                  ),
-                ),
                 SizedBox(height: 20),
                 Text(
                   'To',

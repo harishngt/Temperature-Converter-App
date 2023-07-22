@@ -16,7 +16,13 @@ class MyApp extends StatelessWidget {
       home: TempConv(),
       theme: ThemeData(
           primaryColor: AppColor.primary,
-          secondaryHeaderColor: AppColor.secondary),
+          secondaryHeaderColor: AppColor.secondary,
+          inputDecorationTheme: InputDecorationTheme(
+              enabledBorder: UnderlineInputBorder(
+                borderSide: BorderSide(color: Colors.black),
+              ),
+              focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: AppColor.primary, width: 2)))),
     );
   }
 }
