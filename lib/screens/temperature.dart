@@ -149,30 +149,25 @@ class _TempConvState extends State<TempConv> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                SizedBox(height: 5),
                 Container(
-                    height: 35,
-                    width: 180,
-                    child: Column(
-                      children: [
-                        Text(_output, style: TextStyle(fontSize: 20)),
-                        Divider(height: 12, thickness: 1, color: Colors.black)
-                      ],
-                    )
-                    // TextField(
-                    //   keyboardType: TextInputType.number,
-                    //   style: TextStyle(fontSize: 20),
-                    //   maxLines: 1,
-                    //   minLines: 1,
-                    //   decoration: InputDecoration(
-                    //     border: UnderlineInputBorder(),
-                    //   ),
-                    //   inputFormatters: [
-                    //     FilteringTextInputFormatter.allow(
-                    //         RegExp(r'^-?(\d+)?(\.\d*)?$')),
-                    //   ],
-                    // ),
+                  height: 35,
+                  width: 180,
+                  child: TextField(
+                    keyboardType: TextInputType.number,
+                    cursorColor: AppColor.primary,
+                    controller: TextEditingController(text: _output),
+                    style: TextStyle(fontSize: 20),
+                    maxLines: 1,
+                    minLines: 1,
+                    decoration: InputDecoration(
+                      border: UnderlineInputBorder(),
                     ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'^-?(\d+)?(\.\d*)?$')),
+                    ],
+                  ),
+                ),
                 SizedBox(height: 20),
                 Text(
                   'To',
