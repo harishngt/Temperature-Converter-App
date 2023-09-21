@@ -131,6 +131,7 @@ class _TempConvState extends State<TempConv> {
                           currentlySelected: currentin,
                           onTap: (unit) {
                             currentin = unit;
+                            _calculate(_inputController.text);
                             setState(() {});
                           },
                         ),
@@ -188,6 +189,7 @@ class _TempConvState extends State<TempConv> {
                           currentlySelected: currentout,
                           onTap: (unit) {
                             currentout = unit;
+                            _calculate(_inputController.text);
                             setState(() {});
                           },
                         ),
@@ -205,6 +207,7 @@ class _TempConvState extends State<TempConv> {
           temp = currentin;
           currentin = currentout;
           currentout = temp;
+          _calculate(_inputController.text);
           setState(() {});
         },
         foregroundColor: AppColor.secondary,
