@@ -1,6 +1,6 @@
 # Temperature Converter Project
 
-A new Flutter project to convert temperature.
+A new Flutter project to convert temperature between Celsius, Fahrenheit and Kelvin,
 
 ## Getting Started
 
