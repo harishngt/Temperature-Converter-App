@@ -1,6 +1,6 @@
-# temperature_converter_app
+# Temperature Converter Project
 
-A new Flutter project.
+A new Flutter project to convert temperature.
 
 ## Getting Started
 
